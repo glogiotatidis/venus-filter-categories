@@ -1,4 +1,3 @@
-# From http://wiki.creativecommons.org/Planet_Venus
 """This input filter will filter out certain blog posts based on the <category>
 element.
 
@@ -26,7 +25,7 @@ else:
     sys.exit(0)
 
 # Break up the comma-separated category list into a list
-categories = [cat.strip() for cat in filter_categories.split(',')]
+categories = [cat.strip().lower() for cat in filter_categories.split(',')]
 
 # Collect all the <category> elements from the entry and then see
 # if it also happens to be in our required categories list.  If there aren't
@@ -34,7 +33,7 @@ categories = [cat.strip() for cat in filter_categories.split(',')]
 entry_categories = entry_dom.getElementsByTagName('category')
 if len(entry_categories) > 0:
     for entry_category in entry_categories:
-        if entry_category.attributes['term'].value in categories:
+        if entry_category.attributes['term'].value.lower() in categories:
             sys.stdout.write(entry)
             sys.exit(0)
 else:
